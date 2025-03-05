@@ -30,14 +30,14 @@ pipeline {
                 script {
                     // Log in to AWS ECR
                     sh """
-                    aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REPO
+                    aws ecr get-login-password --region $AWS_REGION | sudo docker login --username AWS --password-stdin $ECR_REPO
                     """
 
                     // Tag the Docker image
-                    sh "docker tag $IMAGE_NAME:latest $ECR_REPO:latest"
+                    sh "sudo docker tag $IMAGE_NAME:latest $ECR_REPO:latest"
 
                     // Push the Docker image to ECR
-                    sh "docker push $ECR_REPO:latest"
+                    sh "sudo docker push $ECR_REPO:latest"
                 }
             }
         }
